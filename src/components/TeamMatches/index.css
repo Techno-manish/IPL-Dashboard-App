@@ -1,0 +1,10 @@
+/* Write your CSS here */
+.teamDetailedView {
+  height: 100vh;
+  background-color: #5755a7;
+  padding: 10vh 5vh 5vh 5vh;
+}
+
+.teamBannerImage {
+  width: 100%;
+}
