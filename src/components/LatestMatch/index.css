@@ -1,1 +1,16 @@
 /* Write your CSS here */
+.latestMatchContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  border: 1px solid #0f172a;
+  background-color: #0f172a;
+  padding: 10px 30px 10px 30px;
+  border-radius: 12px;
+  width: 90%;
+}
+.latestMatchImage {
+  height: 40vh;
+}

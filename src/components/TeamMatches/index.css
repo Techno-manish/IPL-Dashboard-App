@@ -1,10 +1,25 @@
 /* Write your CSS here */
 .teamDetailedView {
-  height: 100vh;
+  height: 100%;
+  width: 95%;
   background-color: #5755a7;
-  padding: 10vh 5vh 5vh 5vh;
+  padding: 10vh 8vh 5vh 8vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .teamBannerImage {
-  width: 100%;
+  width: 90%;
+}
+.loader {
+  text-align: center;
+  margin-top: 20vh;
+}
+.recentMatchCardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  /* justify-content: space-evenly; */
+  align-items: center;
 }

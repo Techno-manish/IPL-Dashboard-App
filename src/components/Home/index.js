@@ -2,10 +2,11 @@
 // import {Link} from 'react-router-dom'
 import {Component} from 'react'
 import './index.css'
+import Loader from 'react-loader-spinner'
 import TeamCard from '../TeamCard'
 
 class Home extends Component {
-  state = {teamList: []}
+  state = {teamList: [], isLoading: true}
 
   componentDidMount() {
     this.getTeamList()
@@ -13,6 +14,7 @@ class Home extends Component {
 
   getTeamList = async () => {
     const url = 'https://apis.ccbp.in/ipl'
+
     const response = await fetch(url)
     const statusCode = await response.status
     console.log(statusCode)
@@ -24,28 +26,36 @@ class Home extends Component {
       id: each.id,
       teamImageUrl: each.team_image_url,
     }))
-    this.setState({teamList: updatedTeamList})
+    this.setState({teamList: updatedTeamList, isLoading: false})
   }
 
   render() {
-    const {teamList} = this.state
+    const {teamList, isLoading} = this.state
     console.log(teamList)
     return (
-      <div className="homeBgContainer">
-        <div className="logoContainer">
-          <img
-            className="iplLogo"
-            src="https://assets.ccbp.in/frontend/react-js/ipl-logo-img.png"
-            alt="ipl logo"
-          />
-          <h1 className="logoText">IPL Dashboard</h1>
-        </div>
-        <div className="teamCardContainer">
-          {teamList.map(each => (
-            <TeamCard key={each.id} teamData={each} />
-          ))}
-        </div>
-      </div>
+      <>
+        {isLoading ? (
+          <div className="loader" testid="loader">
+            <Loader type="Oval" color="#000" height={50} width={50} />
+          </div>
+        ) : (
+          <div className="homeBgContainer">
+            <div className="logoContainer">
+              <img
+                className="iplLogo"
+                src="https://assets.ccbp.in/frontend/react-js/ipl-logo-img.png"
+                alt="ipl logo"
+              />
+              <h1 className="logoText">IPL Dashboard</h1>
+            </div>
+            <ul className="teamCardContainer">
+              {teamList.map(each => (
+                <TeamCard key={each.id} teamData={each} />
+              ))}
+            </ul>
+          </div>
+        )}
+      </>
     )
   }
 }

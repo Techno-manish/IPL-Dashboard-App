@@ -1,54 +1,44 @@
 // Write your code here
+import './index.css'
+
 const LatestMatch = props => {
   const {data} = props
 
-  // const updatedData = {
-  //   competingTeam: data.competing_team,
-  //   competingTeamLogo: data.competing_team_logo,
-  //   date: data.date,
-  //   firstInnings: data.first_innings,
-  //   id: data.id,
-  //   manOfTheMatch: data.man_of_the_match,
-  //   matchStatus: data.match_status,
-  //   result: data.result,
-  //   secondInnings: data.second_innings,
-  //   umpires: data.umpires,
-  //   venue: data.venue,
-  // }
+  const {
+    competing_team,
+    competing_team_logo,
+    date,
+    first_innings,
+    man_of_the_match,
+    result,
+    second_innings,
+    umpires,
+    venue,
+  } = data
 
-  // const {
-  //   competingTeam,
-  //   competingTeamLogo,
-  //   date,
-  //   firstInnings,
-  //   id,
-  //   manOfTheMatch,
-  //   matchStatus,
-  //   result,
-  //   secondInnings,
-  //   umpires,
-  //   venue,
-  // } = updatedData
-
-  // const {
-  //   competing_team,
-  //   competing_team_logo,
-  //   date,
-  //   first_innings,
-  //   id,
-  //   man_of_the_match,
-  //   match_status,
-  //   result,
-  //   second_innings,
-  //   umpires,
-  //   venue,
-  // } = data
-
-  console.log('data')
-  console.log(data)
   return (
-    <div>
-      <h1>hello</h1>
+    <div className="latestMatchContainer">
+      <div className="leftSection">
+        <p>{competing_team}</p>
+        <p>{date}</p>
+        <p>{venue}</p>
+        <p>{result}</p>
+      </div>
+      <img
+        className="latestMatchImage"
+        src={competing_team_logo}
+        alt={`latest match ${competing_team}`}
+      />
+      <div className="rightSection">
+        <p>First Innings</p>
+        <p>{first_innings}</p>
+        <p>Second Innings</p>
+        <p>{second_innings}</p>
+        <p>Man Of The Match</p>
+        <p>{man_of_the_match}</p>
+        <p>Umpires</p>
+        <p>{umpires}</p>
+      </div>
     </div>
   )
 }

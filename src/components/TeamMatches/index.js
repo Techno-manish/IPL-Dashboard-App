@@ -1,10 +1,12 @@
 // Write your code here
 import {Component} from 'react'
 import './index.css'
+import Loader from 'react-loader-spinner'
 import LatestMatch from '../LatestMatch'
+import MatchCard from '../MatchCard'
 
 class TeamMatches extends Component {
-  state = {teamData: {}}
+  state = {teamData: {}, isLoading: true}
 
   componentDidMount() {
     this.getTeamData()
@@ -15,32 +17,46 @@ class TeamMatches extends Component {
     const {params} = match
     const {id} = params
 
-    const response = await fetch(`https://apis.ccbp.in/ipl/${id}`)
+    const teamMatchesApiUrl = `https://apis.ccbp.in/ipl/${id}`
+
+    const response = await fetch(teamMatchesApiUrl)
     const data = await response.json()
 
-    const updatedData = {
-      latestMatchDetails: data.latest_match_details,
-      recentMatches: data.recent_matches,
-      teamBannerUrl: data.team_banner_url,
+    if (response.ok === true) {
+      this.setState({teamData: data, isLoading: false})
     }
-
-    this.setState({teamData: updatedData})
   }
 
   render() {
-    const {teamData} = this.state
-    // console.log(teamData)
-    const {teamBannerUrl, latestMatchDetails} = teamData
+    const {teamData, isLoading} = this.state
+    const {team_banner_url, recent_matches, latest_match_details} = teamData
+    console.log('isLoading')
+    console.log(isLoading)
+    console.log(recent_matches)
+
     return (
-      <div className="teamDetailedView">
-        <img
-          className="teamBannerImage"
-          src={teamBannerUrl}
-          alt="teamBannerImage"
-        />
-        <p>Latest Matches</p>
-        <LatestMatch data={latestMatchDetails} />
-      </div>
+      <>
+        {isLoading ? (
+          <div className="loader" testid="loader">
+            <Loader type="Oval" color="#000" height={50} width={50} />
+          </div>
+        ) : (
+          <div className="teamDetailedView">
+            <img
+              className="teamBannerImage"
+              src={team_banner_url}
+              alt="team banner"
+            />
+            <p>Latest Matches</p>
+            <LatestMatch data={latest_match_details} />
+            <ul className="recentMatchCardContainer">
+              {recent_matches.map(each => (
+                <MatchCard key={each.id} data={each} />
+              ))}
+            </ul>
+          </div>
+        )}
+      </>
     )
   }
 }
